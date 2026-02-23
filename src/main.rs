@@ -64,6 +64,7 @@ fn main() {
             println!("It took you{}attempts.",
             total_attempts.to_string().green());
             break; 
+
  }
 }
 }
@@ -99,7 +100,7 @@ fn parse_guess_rejects_non_number() {
     assert!(result.unwrap_err().contains("not a valid number"));
 }
 #[test]
-fn parse_guess_rejects_out_of_range_low() {
+fn parse_guess_rejects_zero() {
     let result = parse_guess("0");
     assert!(result.is_err());
     assert!(result.unwrap_err().contains("out of range"));
