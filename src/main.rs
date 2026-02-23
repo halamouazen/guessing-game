@@ -2,6 +2,21 @@ use std::io;
 use std::cmp::Ordering;
 use rand::Rng;
 use colored::*; 
+fn parse_guess(input: &str) -> Result<u32, String> {
+    let trimmed = input.trim();
+
+    if trimmed.is_empty() {
+        return Err("Input was empty".to_string());
+    }
+    let number: u32 = trimmed
+    .parse()
+    .map_err(|_| format!("'{}' is not a valid number", trimmed))?;
+if !(1..=100).contains(&number) {
+    return Err(format!("{} is out of range", number));
+}
+Ok(number)
+}
+
 fn main() {
     let secret_number: u32 =
      rand::thread_rng().gen_range(1..=100); //choose a random number between 1-100.
@@ -60,21 +75,41 @@ fn main() {
 mod tests {
     use super::*;
  #[test]
-    fn test_parse_input() {
-        let input = "42\n";
-        let parsed: Result<u32, _> =
-        input.trim().parse();
-        assert_eq!(parsed.unwrap(), 42);
+    fn parse_guess_valid_number() {
+        let result = parse_guess ("42\n");
+        assert_eq!(result.unwrap(), 42);
     }
     #[test]
-fn test_invalid_input() {
-    let input = "apple" ;
-    let parsed: Result<u32, _> =
-    input.trim().parse();
-    assert!(parsed.is_err());
-}
+fn parse_guess_trims_spaces() {
+    let result = parse_guess("   7   ");
+    assert_eq!(result.unwrap(), 7);
 }
 
-    
+#[test]
+fn parse_guess_rejects_empty_input() {
+    let result = parse_guess("   ");
+    assert!(result.is_err());
+    assert_eq!(result.unwrap_err(), "Input was empty");
+}
+
+#[test]
+fn parse_guess_rejects_non_number() {
+    let result = parse_guess("apple");
+    assert!(result.is_err());
+    assert!(result.unwrap_err().contains("not a valid number"));
+}
+#[test]
+fn parse_guess_rejects_out_of_range_low() {
+    let result = parse_guess("0");
+    assert!(result.is_err());
+    assert!(result.unwrap_err().contains("out of range"));
+}
+#[test]
+fn parse_guess_rejects_out_of_range_high() {
+    let result = parse_guess("101");
+    assert!(result.is_err());
+    assert!(result.unwrap_err().contains("out of range"));
+}
+}
     
    
