@@ -1,4 +1,6 @@
+
 🦀 Guessing Game
+
 
 A robust, command-line interface (CLI) number guessing game built with Rust.
 The program generates a secret random number between 1 and 100, and the player must guess it using logic and feedback provided by the system.
