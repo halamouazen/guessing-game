@@ -1,53 +1,80 @@
-# guessing-game
-A robust, command-line interface (CLI) game built with Rust.
-The program generates a secret random number between 1 and 100, and the player must guess it using logic and feedback provided by the system. 
 
-How to run the game: 
-1. Ensure you have Rust and cargo installed
-Install them using rustup: 
-curl https://sh.rustup.rs -sSf | sh 
-2. clone the repository and navigate to the project directory: 
+🦀 Guessing Game
+
+
+A robust, command-line interface (CLI) number guessing game built with Rust.
+The program generates a secret random number between 1 and 100, and the player must guess it using logic and feedback provided by the system.
+
+⸻
+
+🚀 How to Run the Game
+	1.	Ensure you have Rust and Cargo installed
+Install them using rustup:
+curl https://sh.rustup.rs -sSf | sh
+
+Clone the repository and navigate to the project directory:
+
 git clone https://github.com/<your-username>/guessing-game.git
 cd guessing-game
-3. Run the game: 
+
+Run the game:
+
 cargo run
 
+Cargo automatically installs dependencies like rand and colored the first time you run the project.
 
-Game Logic Flow
-1. Generate a secret number between 1 and 100.
-2. loop indefinitely to request user input. 
-3. compare the guess using Ordering enum: 
-less ->"Too small"
-Greater -> "Too big" 
-Equal -> "You win!"(Triggersa break to exit the loop).
-5. Track the total number of attempts and display it upon victory. 
-6. End the game if the player guesses correctly or runs out of attempts. 
+🧠 Game Logic Flow
+	1.	Generate a secret random number between 1 and 100 using the rand crate.
+	2.	Loop to continuously request user input.
+	3.	Validate the input:
+	•	If the input is invalid (letters or symbols), the program displays a warning and asks again.
+	4.	Compare the guess to the secret number using the Ordering enum:
+	•	Less → “📉 Too small!”
+	•	Greater → “📈 Too big!”
+	•	Equal → “🎉 You win!” and the loop exits.
+	5.	Track the total number of attempts and display it upon victory.
+	6.	End the game if the player guesses correctly or runs out of attempts.
 
-Tests: 
-I have implemented automated unit tests to ensure the game handles input parsing correctly and doesn't crash on invalid input.
-To verify the project's status 
-cargo test 
-Example tests include: 
-parsing valid numbers like "42/n" 
-Handling invalid inputs such as "apple" 
-Verifying comparison logic between guesses and the secret number
+Testing
 
-Git and Github workflow:
--git init: initializes a new git repository.
--echo "target/\nCargo.lock" > .gitignore: Creates a file named 
-.gitignore to tell Git which files to ignore.
-git add .: Adds all files to project directory (.=everything)
-git commit -m: creates a commit which is like a save point
-git brunch add-tests : Creates new brunch called add-test. 
-git push -u origin main: pushes the local file to the repository. 
+I have implemented automated unit tests to ensure the game handles input parsing correctly and doesn’t crash on invalid input.
 
-Learning Goals: 
-This project helped practice: 
--Basic Rust syntax and control flow 
--Using the rand and colored crates
--cargo commands (run, build, test)
--writing and running unit tests
--Git and Github workflows
+To verify the project’s status:
+Cargo test
 
+Example tests include:
+	•	Parsing valid numbers like "42\n"
+	•	Handling invalid inputs such as "apple"
+	•	Verifying comparison logic between guesses and the secret number
 
+⚙️ Error Handling
 
+Instead of crashing on invalid input (like typing letters),
+the game uses a match expression to catch parsing errors and display:
+
+⚠️ “That’s not a number! Please try again.”
+
+This ensures a smooth and user-friendly experience.
+
+🧰 Git and GitHub Workflow
+
+Typical workflow used for this project:
+
+git init
+echo "target/\nCargo.lock" > .gitignore
+git add .
+git commit -m "Initial commit: implemented guessing game"
+git branch add-tests
+git checkout add-tests
+git push -u origin main
+
+You can open a Pull Request (PR) on GitHub to merge your test branch into main.
+
+🎯 Learning Goals
+
+This project helped practice and reinforce:
+	•	Basic Rust syntax and control flow
+	•	Using the rand and colored crates
+	•	Running and managing projects with Cargo (run, build, test)
+	•	Writing and executing unit tests
+	•	Using Git and GitHub for version control and collaboration
