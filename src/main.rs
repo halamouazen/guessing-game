@@ -40,14 +40,14 @@ fn main() {
         .read_line(&mut guess)
         .expect("Failed to read line");
 
-    let guess: u32 = match guess.trim().parse()
-     {
-    Ok(num) => num, 
-    Err(_) => {
-           println!("{}", "That's not a number!".yellow());
-           continue; 
-           }
-        };
+    let guess  = match parse_guess(&guess) {
+     Ok(num) => num,
+    Err(msg) => {
+        println!("{}", msg);
+        continue;
+     }
+    };
+     
           total_attempts += 1; 
           match guess.cmp(&secret_number) { 
             Ordering::Less => {
